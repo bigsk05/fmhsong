@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <style>
+        .container {
+            width: 60%;
+            margin: 0% auto 0;
+            background-color: #f0f0f0;
+            padding: 2% 5%;
+            border-radius: 10px
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+            p {
+                line-height: 2.3
+            }
+
+        a {
+            color: #20a53a
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+		<center>
+            <h1>Ghink Network Passport</h1>
+            <h3>Log Warn Mail</h3>
+            <ul>
+                <p>Dear {{name}}</p>
+                <p>Your Ghink Network Passport is loging in {{area}}</p>
+                <p>But your last login place is {{lastArea}}</p>
+                <p>If it is not your own operation, your password may have been leaked. Please modify it immediately</p>
+                <p>Copyright &copy; Ghink Network Studio</p>
+            </ul>
+		</center>
+    </div>
+</body>
+</html>

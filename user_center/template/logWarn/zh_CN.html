@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <style>
+        .container {
+            width: 60%;
+            margin: 10% auto 0;
+            background-color: #f0f0f0;
+            padding: 2% 5%;
+            border-radius: 10px
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+            p {
+                line-height: 2.3
+            }
+
+        a {
+            color: #20a53a
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+		<center>
+            <h1>极科网络通行证</h1>
+            <h3>登录告警邮件</h3>
+            <ul>
+                <p>尊敬的{{name}}</p>
+                <p>您的极科网络通行证正在{{area}}登录</p>
+                <p>而您上次的登录地区为{{lastArea}}</p>
+                <p>如非您本人操作，您的密码可能已经泄露，请马上修改</p>
+                <p>版权所有 &copy; 极科网络工作室</p>
+            </ul>
+		</center>
+    </div>
+</body>
+</html>

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>点歌确认-凤鸣高级中学广播站</title>
+    <link href="https://resource.ghink.net/site/public/css/bootstrap_4.4.1.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="container mt-2">
+      <div class="row">
+        <div class="col-12">
+          <div class="jumbotron">
+            <h3 class="text-center">点歌确认</h3>
+			<h5 class="text-center">您选择的歌为：{{name}}</h5>
+            <div class="row justify-content-center">
+                <select id="selection">
+                    {{option}}
+                </select>
+            </div><br>
+            <div class="row justify-content-center">
+              <div class="col-auto">
+                <p><a class="btn btn-primary btn-lg" href="javascript:void(0)" onClick="cancel()" role="button">取消</a> </p>
+              </div>
+              <div class="col-auto">
+                <p><a class="btn btn-success btn-lg" href="javascript:void(0)" id="confirm" onClick="confirm()" role="button">确定</a> </p>
+              </div>
+            </div>
+            <p class="text-center">确认后将无法修改，并消耗您本周的点歌次数，请三思而后行！</p> 
+            <p class="text-center">第一次被人点播的歌曲需要等待服务器缓存，可能会暂时没有响应，请耐心等候！</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr>
+    <footer class="text-center">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <p>Copyright © Ghink Network Studio 2014. All rights reserved.</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+	<script>
+	    var pid = {{pid}};
+	    var id = '{{id}}';
+	    var cookies = '{{cookie}}';
+	    var uid = "{{uid}}";
+        var auth = {{auth}};
+        var switcher = {{switcher}};
+        var timeQuatum = `{{timeQuatum}}`;
+        var igTime = {{igTime}};
+        var balace = {{balace}};
+        function isWechat(){
+            var ua = window.navigator.userAgent.toLowerCase();
+            if(ua.match(/MicroMessenger/i) == 'micromessenger'){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        function print(data) {
+          alert(data);
+          console.log(data);
+        }
+        function confirm() {
+            var info = $("#selection option:selected").val();
+            if(uid!=""){
+                if(auth){
+                    var timeLimit = JSON.parse(timeQuatum);
+                    var day = new Date().getDay();
+                    var date = new Date().getFullYear()+"-"+(new Date().getMonth()+1)+"-"+new Date().getDate();
+                    var timestamp = Date.parse(new Date())/1000;
+                    var timeSwitcher = false;
+                    for (i in timeLimit){
+                        if((day==timeLimit[i][0] && isDuring(date+" "+timeLimit[i][1],date+" "+timeLimit[i][2])) || igTime){
+                            timeSwitcher = true;   
+                        }
+                    }
+                    if(timeSwitcher){
+                        if(balace){
+                            if(switcher){
+                                JsonData = {
+                                    pid: pid,
+                                    id: id,
+                                    date: info
+                                };
+                                document.getElementById("confirm").innerHTML="请稍后";
+        		                $.get("process.php", JsonData,
+                                function(data) {
+                                    document.getElementById("confirm").innerHTML="确定";
+                                    print(data);
+                        		    if(isWechat()){
+                        		        history.go(-1);
+                        		    }else{
+                        			    window.close();
+                        		    }
+                                });
+                            }else{
+                                print("点歌通道已经关闭！");
+                    		    if(isWechat()){
+                    		        history.go(-1);
+                    		    }else{
+                    			    window.close();
+                    		    }
+                            }
+                        }else{
+                            print("您的本周点歌余额不足！");
+                		    if(isWechat()){
+                		        history.go(-1);
+                		    }else{
+                			    window.close();
+                		    }
+                        }
+                    }else{
+                        print("当前非点歌时间段！");
+            		    if(isWechat()){
+            		        history.go(-1);
+            		    }else{
+            			    window.close();
+            		    }
+                    }
+                }else{
+                    print("请先实名！");
+        		    if(isWechat()){
+        		        history.go(-1);
+        		    }else{
+        			    window.close();
+        		    }
+                }
+            }else{
+                print("请先登录！");
+                window.location.href='../center/login.php?location=https://radio.fmhs.club/song/';
+            }
+        }
+        function isDuring(beginDateStr, endDateStr) {
+            var curDate = new Date(),
+                beginDate = new Date(beginDateStr),
+                endDate = new Date(endDateStr);
+            if (curDate >= beginDate && curDate <= endDate) {
+                return true;
+            }
+            return false;
+        }
+		function cancel() {
+		    if(isWechat()){
+		        history.go(-1);
+		    }else{
+			    window.close();
+		    }
+		}
+	</script>
+    <script src="https://resource.ghink.net/site/public/js/jquery.js"></script>
+    <script src="https://resource.ghink.net/site/public/js/popper.min.js"></script>
+    <script src="https://resource.ghink.net/site/public/js/bootstrap_4.4.1.js"></script>
+  </body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="icon" href="https://resource.ghink.net/public/img/logo/ghink.png" type="image/png">
+    <link rel="shortcut icon" href='https://resource.ghink.net/public/img/logo/ghink.png' type="image/png">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>实名认证系统 - 极科网络工作室</title>
+    <!-- Bootstrap -->
+    <link href="https://resource.ghink.net/site/public/css/bootstrap_4.4.1.css" rel="stylesheet">
+	<style>
+		#qrcode{
+		/*text-align: center;*/
+		/*display: table-cell;*/
+		/*width: 120px;*/
+		/*height: 120px;*/
+		/*vertical-align:middle;*/
+		/*position: relative;*/
+		}
+	</style>
+  </head>
+  <body>
+    <div class="container">
+      <hr>
+      <div class="row">
+        <div class="col-6">
+          <h3>实名认证</h3>
+        </div>
+        <div class="col-6">
+          <p class="text-right"><a href="javascript:void(0)" onClick="back()">返回上一页</a></p>
+        </div>
+      </div>
+      <hr>
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-8  col-12 jumbotron">
+              <div class="form-group">
+                  <h5>通过后将无法修改！请确认为您本人的身份信息。</h5>
+                  <label name="type">请选择核验方式：</label>
+				  <select>
+					  <option value="artificial">人脸识别</option>
+				  </select>
+              </div>
+              <div class="text-center">
+                <button class="btn btn-primary" onClick="goAuth()">前往认证</button>
+              </div>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <footer class="text-center">
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+              <p>Copyright © Ghink Network Studio 2014. All rights reserved.</p>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+	<script>
+		var token = "{{token}}";
+		function goAuth(){
+			if(token==""){
+				alert("请先登录！");
+				window.location.href="oauth.php?type=log";
+			}else{
+			    if ((navigator.userAgent.match(/(iPhone|iPod|Android|ios|iOS|iPad|Backerry|WebOS|Symbian|Windows Phone|Phone)/i))) {
+					window.open("{{url}}","_blank","alwaysRaised=yes");
+				}else{
+					document.write('<center>请使用手机扫码进行验证<br><br><div class="form-group" id=qrcode></div><br><button type="submit" class="btn btn-primary" onClick="location.reload()">取消</button></center>');
+					var qrcode = new QRCode(document.getElementById("qrcode"), {
+						width : 120,
+						height : 120
+					});
+					qrcode.makeCode("{{url}}");
+				}
+			}
+		}
+		function back(){
+			history.go(-1);
+		}
+	</script>
+    <script src="https://resource.ghink.net/site/public/js/qrcode.js"></script>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://resource.ghink.net/site/public/js/jquery.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="https://resource.ghink.net/site/public/js/popper.min.js"></script>
+    <script src="https://resource.ghink.net/site/public/js/bootstrap_4.4.1.js"></script>
+  </body>
+</html>

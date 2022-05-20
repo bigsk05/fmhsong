@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <link rel="icon" href="https://resource.ghink.net/public/img/logo/ghink.png" type="image/png">
+    <link rel="shortcut icon" href='https://resource.ghink.net/public/img/logo/ghink.png' type="image/png">
+    <title>403</title>
+    <style>
+        .container {
+            width: 60%;
+            margin: 10% auto 0;
+            background-color: #f0f0f0;
+            padding: 2% 5%;
+            border-radius: 10px
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+            ul li {
+                line-height: 2.3
+            }
+
+        a {
+            color: #20a53a
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+	<script>
+		if(navigator.language=="zh-CN"){
+			document.write("\
+			<h1>403</h1>\
+			<h3>您没有权限访问这个页面</h3>\
+			<ul>\
+				<li>可能是您访问了错误的URL，或者点击了某个过期的链接</li>\
+				<li>如果您确信您访问的是正确的链接，请与管理员<a href=\"mailto:service@ghink.net\">联系</a></li>\
+				<li>版权所有 &copy; 极科网络工作室</li>\
+			</ul>\
+			");
+		}else{
+			document.write("\
+			<h1>403</h1>\
+			<h3>You have no permission to visit this page</h3>\
+			<ul>\
+				<li>It may because of a wrong URL or you click a out of date link</li>\
+				<li>If you sure you visit a right page, please <a href=\"mailto:service@ghink.net\">contact</a> with admin.</li>\
+				<li>Copyright &copy; Ghink Network Studio</li>\
+			</ul>\
+			");
+		}
+	</script>
+    </div>
+</body>
+</html>
